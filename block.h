@@ -13,10 +13,10 @@ public:
 
 private:
 	vector<int> binaryPlainText;
-	// int binaryPlainText[64];
 	string plainText;
 
 	void convertString();
+	void initialPermutation();
 
 };
 
