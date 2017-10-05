@@ -12,8 +12,8 @@ using namespace std;
 
 int main(void) {
 
-	Key k("133457799BBCDFF1");
-	// Encrypt plainText("abcdefgh");
+	// Key k("133457799BBCDFF1");
+	Encrypt plainText("abcdefgh");
 	// Block blk("vincentc");
 	// cout<<endl;
 	

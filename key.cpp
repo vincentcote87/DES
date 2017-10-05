@@ -98,13 +98,7 @@ void Key::shiftKey() {
 }
 
 void Key::generateKeys() {
-	// vector<int> CD;
 	int CD[56];
-
-	for(int k = 0; k < 28; k++) {
-		cout<<C[k];
-	}
-cout<<endl;
 	for(int i = 0; i < 16; i++) {
 		if(i == 0 || i == 1 || i == 8 || i == 15) {
 			shiftKey();
@@ -115,54 +109,19 @@ cout<<endl;
 		for(int j = 0; j < 28; j++) {
 			CD[j] = C[j];
 			CD[j + 28] = D[j];
-			// CD.push_back(C[i]);
-			// cout<<C[j];
+
 		}
-		// for(int j = 0; j < 28; j++) {
-		// 	CD.push_back(D[i]);
-		// }
 		for(int j = 0; j < 48; j++) {
-			// cout<<CD[j];
-			Kn[i][j] = C[PC2[j] - 1];
+			Kn[i][j] = CD[PC2[j] - 1];
 		}
-		// cout<<endl;
 	}
-
-	for(int i = 0; i < 16; i++) {
-		cout<<"Key" << i << " = ";
-		for(int j = 0; j < 48; j++) {
-			cout<<Kn[i][j];
-		}
-		cout<<endl;
-	}
-
-
-
-	// shiftKey();
-	// shiftKey();
-	// cout<<"C = ";
-	// for(int i = 0; i < 27; i++) {
-	// 		cout<<C[i];
-	// 	}
-	// 	cout<<endl;
-	// 	cout<<"D = ";
-	// 	for(int i = 0; i < 28; i++) {
-	// 		cout<<D[i];
-	// 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-000110110000001011101111110100001110011100111000
-000110110000001011101111111111000111000001110010
+void Key::getKey(int n, int k[48]) {
+	for(int i = 0; i < 48; i++) {
+		k[i] = Kn[n - 1][i];
+	}
+}
 
 
 
