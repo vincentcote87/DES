@@ -92,26 +92,22 @@ void Block::initialPermutation() {
 	}
 	binaryPlainText = tmp;
 	//debug msg
-	for(int k = 0; k < binaryPlainText.size(); k++) {
-		cout << binaryPlainText[k];
-		if(k % 8 == 7) {
-			cout<<endl;
-		}
-	}
+	// for(int k = 0; k < binaryPlainText.size(); k++) {
+	// 	cout << binaryPlainText[k];
+	// 	if(k % 8 == 7) {
+	// 		cout<<endl;
+	// 	}
+	// }
 	//end debug
 }
 
 void Block::splitLeftRight() {
 	for(int i = 0; i < 32; i++) {
 		L.push_back(binaryPlainText[i]);
-		cout<<L[i];
 	}
-	cout<<endl;
 	for(int j = 32; j < 64; j++) {
 		R.push_back(binaryPlainText[j]);
-		cout<<R[j%32];
 	}
-	cout<<endl;
 }
 
 

@@ -17,7 +17,7 @@ const int E[] = {
 	28, 29, 30, 31, 32, 1
 };
 
-Round::Round(vector<int> left, vector<int> right, Key k) {
+Round::Round(vector<int> left, vector<int> right, int k[48]) {
 	L = left;
 	R = right;
 	expansion();
@@ -29,4 +29,10 @@ void Round::expansion() {
 		cout<<expendedR[i];
 	} 
 	cout<<endl;
+}
+
+void fFuncton() {
+	for(int i = 0; i < 48; i++) {
+		//implement XOR between expendedR and k
+	}
 }
