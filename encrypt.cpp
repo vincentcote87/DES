@@ -16,14 +16,9 @@ Encrypt::Encrypt(string plainText) {
 		tmp[i] = plainText.at(i);
 	}
 	Key k("133457799BBCDFF1");
-	k.getKey(2, key);
+	k.getKey(1, key);
 	Block blk(tmp);
 	Round rd(blk.getLeft(), blk.getRight(), key);
 
 	k.getKey(2, key);
-	cout<<endl;
-	for(int i = 0; i < 48; i++) {
-		cout<<key[i];
-	}
-	cout<<endl;
 }

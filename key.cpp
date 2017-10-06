@@ -109,7 +109,6 @@ void Key::generateKeys() {
 		for(int j = 0; j < 28; j++) {
 			CD[j] = C[j];
 			CD[j + 28] = D[j];
-
 		}
 		for(int j = 0; j < 48; j++) {
 			Kn[i][j] = CD[PC2[j] - 1];

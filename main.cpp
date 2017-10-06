@@ -9,7 +9,6 @@
 
 using namespace std;
 
-
 int main(void) {
 
 	// Key k("133457799BBCDFF1");
