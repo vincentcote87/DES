@@ -12,10 +12,12 @@ using namespace std;
 
 int main(void) {
 
-	Encrypt plainText("abcdefgh");
+	Encrypt plainText("Your lips are smoother");
 	cout<<plainText.getEncrypted()<<endl;
-	Decrypt cypherText("abcdefgh");
-	cout<<cypherText.getDecrypted()<<endl;
+	// Decrypt cypherText("abcdefgh");
+	// cout<<cypherText.getDecrypted()<<endl;
 
 	return 0;
 }
+
+

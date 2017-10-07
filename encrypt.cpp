@@ -24,7 +24,7 @@ Encrypt::Encrypt(string plainText) {
 	int key[48]; // use get key(key#, key), key# starts at 1 through 16
 	memset(key, 0, sizeof(key));
 	string str;
-	Key k("133457799BBCDFF1");
+	Key k("0E329232EA6D0D73");
 
 
 	for(int i = 0; i < 8; i++) {

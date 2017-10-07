@@ -17,22 +17,38 @@ const int P[] = {
 };
 
 const int testing[] = {
-	0,0,0,0,
-	0,0,0,1,
-	0,0,1,0,
+	// 0,0,0,0,
+	// 0,0,0,1,
+	// 0,0,1,0,
+	// 0,0,1,1,
+	// 0,1,0,0,
+	// 0,1,0,1,
+	// 0,1,1,0,
+	// 0,1,1,1,
+	// 1,0,0,0,
+	// 1,0,0,1,
+	// 1,0,1,0,
+	// 1,0,1,1,
+	// 1,1,0,0,
+	// 1,1,0,1,
+	// 1,1,1,0,
+	// 1,1,1,1
 	0,0,1,1,
-	0,1,0,0,
-	0,1,0,1,
-	0,1,1,0,
-	0,1,1,1,
 	1,0,0,0,
-	1,0,0,1,
-	1,0,1,0,
-	1,0,1,1,
-	1,1,0,0,
-	1,1,0,1,
-	1,1,1,0,
-	1,1,1,1
+	0,0,1,1,
+	1,0,0,0,
+	0,0,1,1,
+	1,0,0,0,
+	0,0,1,1,
+	1,0,0,0,
+	0,0,1,1,
+	1,0,0,0,
+	0,0,1,1,
+	1,0,0,0,
+	0,0,1,1,
+	1,0,0,0,
+	0,0,1,1,
+	1,0,0,0,
 };
 
 Block::Block(string str) {
@@ -53,17 +69,17 @@ vector<int> Block::getRight() {
 void Block::convertString() {
 	int tmp;
 
-	// for(int i = 0; i < plainText.length(); i++) {
-	// 	tmp = plainText[i];
-	// 	int tmpBlock[8];
-	// 	for(int j = 7; j >= 0; j--) {
-	// 		tmpBlock[j] = tmp % 2;
-	// 		tmp = tmp / 2;
-	// 	}
-	// 	for(int j = 0; j < 8; j++) {
-	// 		binaryPlainText.push_back(tmpBlock[j]);
-	// 	}
-	// }
+	for(int i = 0; i < plainText.length(); i++) {
+		tmp = plainText[i];
+		int tmpBlock[8];
+		for(int j = 7; j >= 0; j--) {
+			tmpBlock[j] = tmp % 2;
+			tmp = tmp / 2;
+		}
+		for(int j = 0; j < 8; j++) {
+			binaryPlainText.push_back(tmpBlock[j]);
+		}
+	}
 	// //debug msg
 	// for(int k = 0; k < binaryPlainText.size(); k++) {
 	// 	cout << binaryPlainText[k];
@@ -72,9 +88,9 @@ void Block::convertString() {
 	// 	}
 	// }
 	// cout << plainText << endl;
-	for(int j = 0; j < 64; j++) {
-			binaryPlainText.push_back(testing[j]);
-		}
+	// for(int j = 0; j < 64; j++) {
+	// 		binaryPlainText.push_back(testing[j]);
+	// 	}
 	// for(int k = 0; k < binaryPlainText.size(); k++) {
 	// 	cout << binaryPlainText[k];
 	// 	if(k % 8 == 7) {
