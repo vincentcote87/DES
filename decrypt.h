@@ -1,5 +1,5 @@
-#ifndef ENCRYPT_H
-#define ENCRYPT_H
+#ifndef DECRYPT_H
+#define DECRYPT_H
 
 #include <iostream>
 #include <string>
@@ -10,10 +10,10 @@
 
 using namespace std;
 
-class Encrypt {
+class Decrypt {
 public:
-	Encrypt(string);
-	string getEncrypted();
+	Decrypt(string);
+	string getDecrypted();
 
 private:
 	string M;

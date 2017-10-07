@@ -16,6 +16,7 @@ public:
 	void sBox();
 	int convertToInt(int[4]);
 	void finalPermutation();
+	vector<int> getRight();
 private:
 	vector<int> L;
 	vector<int> R;
@@ -25,6 +26,7 @@ private:
 	vector<int> KxorER;
 	vector<int> sboxValues;
 	vector<int> finalF;
+	vector<int> Rn;
 	// Key roundKey('testing');
 
 };

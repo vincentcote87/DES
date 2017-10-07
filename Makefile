@@ -23,7 +23,7 @@ all : main
 # $^ = this target
 # $@ = this/these dependencies
 
-main : main.o block.o key.o round.o encrypt.o
+main : main.o block.o key.o round.o encrypt.o decrypt.o
 	$(CCC) $(CCCFLAGS) $^ -o $@
 
 # if there is more than one problem to do on an assignment you can compile
@@ -45,6 +45,7 @@ block.o : block.h
 round.o : round.h
 key.o : key.h
 encrypt.o : encrypt.h
+decrypt.o : decrypt.h
 
 
 # Clean out your directory but keep executables with command "clean".  Gets rid 

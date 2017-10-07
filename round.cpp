@@ -153,6 +153,18 @@ void Round::finalPermutation() {
 	}
 }
 
+vector<int> Round::getRight() {
+	for(int i = 0; i < 32; i++) {
+		if(finalF[i] != L[i]) {
+			Rn.push_back(1);
+		}
+		else {
+			Rn.push_back(0);
+		}
+	}
+	return Rn;
+}
+
 
 
 

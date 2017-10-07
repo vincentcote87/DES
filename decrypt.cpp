@@ -4,7 +4,7 @@
 #include "round.h"
 #include "block.h"
 #include "key.h"
-#include "encrypt.h"
+#include "decrypt.h"
 
 using namespace std;
 
@@ -19,7 +19,7 @@ const int INVERSE_IP[] = {
     33, 1, 41,  9, 49, 17, 57, 25
 };
 
-Encrypt::Encrypt(string plainText) {
+Decrypt::Decrypt(string plainText) {
 	char tmp[8];
 	int key[48]; // use get key(key#, key), key# starts at 1 through 16
 	memset(key, 0, sizeof(key));
@@ -34,11 +34,13 @@ Encrypt::Encrypt(string plainText) {
 	Block blk(tmp);
 	Ln = blk.getLeft();
 	Rn = blk.getRight();
+	int i = 16;
 	for(int j = 1; j <= 16; j++) {
-		k.getKey(j, key);
+		k.getKey(i, key);
 		Round r(Ln, Rn, key);
 		Ln = Rn;
 		Rn = r.getRight();
+		i--;
 	}
 
 	for(int j = 0; j < 32; j++) {
@@ -53,7 +55,7 @@ Encrypt::Encrypt(string plainText) {
 	}
 }
 
-string Encrypt::getEncrypted() {
+string Decrypt::getDecrypted() {
 	int tmpChar[4];
 	for(int i = 0; i < 64; i++) {
 		tmpChar[i % 4] = inverseIP[i];
@@ -64,7 +66,7 @@ string Encrypt::getEncrypted() {
 	return C;
 }
 
-char Encrypt::convertToHex(int x[4]) {
+char Decrypt::convertToHex(int x[4]) {
 	int y = (x[0] * 8) + (x[1] * 4) + (x[2] * 2) + (x[3] * 1);
 	char ch;
 	switch(y) {
@@ -88,13 +90,6 @@ char Encrypt::convertToHex(int x[4]) {
 	return ch;
 }
 
-
-// char Encrypt::convertToChar(int x[8]) {
-// 	int y;
-// 	y = (x[0] * 128) + (x[1] * 64) + (x[2] * 32) + (x[3] * 16) + (x[4] * 8) + (x[5] * 4) + (x[6] * 2) + (x[7] * 1);
-// 	cout<<y<<" ";
-// 	return 's';
-// }
 
 
 
