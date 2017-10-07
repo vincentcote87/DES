@@ -69,6 +69,17 @@ const int s[8][4][16] = {
 	}
 };
 
+const int P[] = {
+	16,  7, 20, 21,
+    29, 12, 28, 17,
+     1, 15, 23, 26,
+     5, 18, 31, 10,
+     2,  8, 24, 14,
+    32, 27,  3,  9,
+    19, 13, 30,  6,
+    22, 11,  4, 25
+};
+
 Round::Round(vector<int> left, vector<int> right, int k[48]) {
 	L = left;
 	R = right;
@@ -77,6 +88,8 @@ Round::Round(vector<int> left, vector<int> right, int k[48]) {
 		key.push_back(k[i]);
 	}
 	fFunction();
+	sBox();
+	finalPermutation();
 }
 
 void Round::expansion() {
@@ -95,14 +108,50 @@ void Round::fFunction() {
 	}
 }
 
+void Round::sBox() {
+	int row[4] = {0,0,0,0};
+	int col[4];
+	int sbox = 0;
+	for(int i = 0; i < 48; i++) {
+		if(i % 6 == 0) {
+			row[2] = F[i];
+		}
+		else if(i % 6 == 5) {
+			row[3] = F[i];
+			// cout<<row[2]<<row[3]<<endl;
+			// cout<<sbox<<" "<<convertToInt(row)<<" "<<convertToInt(col)<<endl;
+			sboxValues.push_back(s[sbox][convertToInt(row)][convertToInt(col)]);
+			sbox++;
+		}
+		else {
+			col[(i % 6) - 1] = F[i];
+		}
+	}
+	for(int i = 0; i < 8; i++) {
+		int tmp = sboxValues[i];
+		int bin[4] = {0,0,0,0};
+		for(int j = 3; j >= 0; j--) {
+			bin[j] = tmp % 2;
+			tmp = tmp / 2;
+		}
+		for(int k = 0; k < 4; k++) {
+			KxorER.push_back(bin[k]);
+		}
+	}
+	// for(int i = 0; i < 32; i++) {
+	// 	cout<<KxorER[i];
+	// }
+}
+
 int Round::convertToInt(int x[4]) {
 	return (8*x[0]) + (4*x[1]) + (2*x[2]) + (x[3]);
 }
 
-
-
-
-
+void Round::finalPermutation() {
+	for(int i = 0; i < 32; i++) {
+		finalF.push_back(KxorER[(P[i]) - 1]);
+	}
+}
 
 
 
