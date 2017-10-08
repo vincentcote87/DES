@@ -57,6 +57,7 @@ Decrypt::Decrypt(string plainText, string providedKey) {
 
 string Decrypt::getDecrypted() {
 	int tmpChar[4];
+	C = "";
 	for(int i = 0; i < 64; i++) {
 		tmpChar[i % 4] = inverseIP[i];
 		if(i % 4 == 3) {
@@ -71,8 +72,8 @@ char Decrypt::convertToHex(int x[4]) {
 	char ch;
 	switch(y) {
 		case 0 : ch = '0'; break;
-		case 1 : ch = '2'; break;
-		case 2 : ch = '3'; break;
+		case 1 : ch = '1'; break;
+		case 2 : ch = '2'; break;
 		case 3 : ch = '3'; break;
 		case 4 : ch = '4'; break;
 		case 5 : ch = '5'; break;

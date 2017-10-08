@@ -55,6 +55,7 @@ Encrypt::Encrypt(string plainText, string providedKey) {
 
 string Encrypt::getEncrypted() {
 	int tmpChar[4];
+	C = "";
 	for(int i = 0; i < 64; i++) {
 		tmpChar[i % 4] = inverseIP[i];
 		if(i % 4 == 3) {

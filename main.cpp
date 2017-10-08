@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <streambuf>
+#include <sstream>
 #include <vector>
 #include <iomanip>
 #include "block.h"
@@ -12,48 +13,56 @@
 
 using namespace std;
 
+string getStringFromFile(string);
 string convertToHex(string);
+string convertToString(string);
 
 int main(void) {
 
 	string k1 = "0E329232EA6D0D73";
-	string k2 = "0E3292323A6D0A73";
-	string k3 = "0E310232EA6D0D3B";
+	string k2 = "0E339632EB6D0D73";
+	string k3 = "0E329332AA6D0D73";
 
-	int n = 61;
-  std::cout << std::dec << n << '\n';
-  std::cout << std::hex << n << '\n';
-  std::cout << std::oct << n << '\n';
-	// Encrypt a("596F7572206C6970", k1);
-	// string aa = a.getEncrypted();
-	// Decrypt b(aa, k2);
-	// string bb = b.getDecrypted();
-	// Encrypt c(bb, k3);
-	// string cc = c.getEncrypted();
+	string m = getStringFromFile("testing.txt");
+	// cout<<endl<<m<<endl;
 
-	// cout<<cc<<endl;
+	m = convertToHex(m);
+	m = getStringFromFile("temp.txt");
 
-	// Decrypt d(cc, k3);
-	// string dd = d.getDecrypted();
-	// Encrypt e(dd, k2);
-	// string ee = e.getEncrypted();
-	// Decrypt f(ee, k1);
-	// string ff = f.getDecrypted();
+	Encrypt a("596F7572206C6970", k1);
+	string aa = a.getEncrypted();
+	Decrypt b(aa, k2);
+	string bb = b.getDecrypted();
+	Encrypt c(bb, k3);
+	string cc = c.getEncrypted();
 
-	// cout<<ff<<endl;
+	cout<<cc<<endl;
+
+	Decrypt d(cc, k1);
+	string dd = d.getDecrypted();
+	Encrypt e(dd, k2);
+	string ee = e.getEncrypted();
+	Decrypt f(ee, k3);
+	string ff = f.getDecrypted();
+
+	cout<<ff<<endl;
 	
 	// cout<<convertToHex("testing.txt")<<endl;
+  	
+	// Encrypt plainText(m, k1);
+	// // cout<<plainText.getEncrypted()<<endl;
+	// Decrypt cypherText(plainText.getEncrypted(), k1);
+	// cout<<cypherText.getDecrypted()<<endl;
+	// string cc = cypherText.getDecrypted();
 
-	Encrypt plainText("8787878787878787", k1);
-	cout<<plainText.getEncrypted()<<endl;
-	Decrypt cypherText(plainText.getEncrypted(), k1);
-	cout<<cypherText.getDecrypted()<<endl;
+	// cout<<cc<<endl;
+	// cout<<convertToString(cc)<<endl;
 
 	return 0;
 }
 
 
-string convertToHex(string file) {
+string getStringFromFile(string file) {
 	ifstream t(file);
 	string str;
 	string hexStr = "";
@@ -67,55 +76,51 @@ string convertToHex(string file) {
 
 	str.assign((istreambuf_iterator<char>(t)), istreambuf_iterator<char>());
 
-	for(int i = 0; i < str.length(); i++) {
-		tmp = str[i];
-		int tmpBlock[8];
-		for(int j = 7; j >= 0; j--) {
-			tmpBlock[j] = tmp % 2;
-			tmp = tmp / 2;
-		}
-		for(int j = 0; j < 8; j++) {
-			binary.push_back(tmpBlock[j]);
-		}
-	}
-	cout<<binary.size()<<endl;
-	while(binary.size() % 64 != 0){
-		binary.push_back(0);
-	}
-	for(int i = 0; i < binary.size(); i++) {
-		hex += binary[0] * 8;
-		if( i % 4 == 1) {
-			hex += binary[i] * 4;
-		} else if( i % 4 == 2) {
-			hex += binary[i] * 2;
-		} else if( i % 4 == 3) {
-			hex += binary[i] * 1;
-		} if(i % 4 == 0 && i != 0) {
-			switch(hex) {
-				case 0: hexStr = hexStr + '0'; hex = 0; break;
-				case 1: hexStr = hexStr + '1'; hex = 0; break;
-				case 2: hexStr = hexStr + '2'; hex = 0; break;
-				case 3: hexStr = hexStr + '3'; hex = 0; break;
-				case 4: hexStr = hexStr + '4'; hex = 0; break;
-				case 5: hexStr = hexStr + '5'; hex = 0; break;
-				case 6: hexStr = hexStr + '6'; hex = 0; break;
-				case 7: hexStr = hexStr + '7'; hex = 0; break;
-				case 8: hexStr = hexStr + '8'; hex = 0; break;
-				case 9: hexStr = hexStr + '9'; hex = 0; break;
-				case 10: hexStr = hexStr + 'A'; hex = 0; break;
-				case 11: hexStr = hexStr + 'B'; hex = 0; break;
-				case 12: hexStr = hexStr + 'C'; hex = 0; break;
-				case 13: hexStr = hexStr + 'D'; hex = 0; break;
-				case 14: hexStr = hexStr + 'E'; hex = 0; break;
-				case 15: hexStr = hexStr + 'F'; hex = 0; break;
-				default : cout<<"Should never see this"<<endl;
-			}
-			hex += binary[i] * 8;
-		}
-	}
-	return hexStr;
+	return str;
 }
 
+string convertToHex(string str) {
+	int tmp;
+	ofstream outFile("temp.txt");
+	for(int i = 0; i < str.length(); i++) {
+		tmp = str.at(i);
+		outFile << hex << tmp;
+	}
+	cout<<endl;
+	return str;
+}
 
-
+string convertToString(string str) {
+	int tmp;
+	int x, y, z;
+	char ch;
+	string outStr;
+	for(int i = 0; i < str.length(); i++){
+		tmp = str.at(i);
+		if(i % 2 == 0 && i != 0) {
+			ch = (x * 16) + y;
+			outStr += ch;
+		}
+		if(i % 2 == 0) {
+			if(tmp >= '0' && tmp <= '9') {
+				x = tmp - 48;
+			}
+			else {
+				x = tmp - 55;
+			}
+		} else if(i % 2 == 1) {
+			if(tmp >= '0' && tmp <= '9') {
+				y = tmp - 48;
+			}
+			else {
+				y = tmp - 55;
+			}
+		} 
+		// if(str.length() - 1 == i) {
+		// 	ch = (x * 16) + y;
+		// 	outStr += ch;
+		// }
+	}
+	return outStr;
+}
 
