@@ -21,6 +21,7 @@ private:
 	string plainText;
 
 	void convertString();
+	void pushToBPT(int,int,int,int);
 	void initialPermutation();
 	void splitLeftRight();
 

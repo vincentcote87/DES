@@ -12,7 +12,7 @@ using namespace std;
 
 class Encrypt {
 public:
-	Encrypt(string);
+	Encrypt(string, string);
 	string getEncrypted();
 
 private:

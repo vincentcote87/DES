@@ -19,15 +19,15 @@ const int INVERSE_IP[] = {
     33, 1, 41,  9, 49, 17, 57, 25
 };
 
-Decrypt::Decrypt(string plainText) {
-	char tmp[8];
+Decrypt::Decrypt(string plainText, string providedKey) {
+	char tmp[16];
 	int key[48]; // use get key(key#, key), key# starts at 1 through 16
 	memset(key, 0, sizeof(key));
 	string str;
-	Key k("133457799BBCDFF1");
+	Key k(providedKey);
 
 
-	for(int i = 0; i < 8; i++) {
+	for(int i = 0; i < 16; i++) {
 		tmp[i] = plainText.at(i);
 	}
 
