@@ -83,7 +83,6 @@ void Key::permutateKey() {
 void Key::shiftKey() {
 	int tmpC[28];
 	int tmpD[28];
-	// if(singleShift) {
 		tmpC[27] = C[0];
 		tmpD[27] = D[0];
 		for(int i = 0; i < 27; i++) {
@@ -94,7 +93,6 @@ void Key::shiftKey() {
 			C[i] = tmpC[i];
 			D[i] = tmpD[i];
 		}
-	// }
 }
 
 void Key::generateKeys() {
@@ -121,14 +119,3 @@ void Key::getKey(int n, int k[48]) {
 		k[i] = Kn[n - 1][i];
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
