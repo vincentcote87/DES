@@ -24,6 +24,9 @@ int main(void) {
 	string k3 = "0E329332AA6D0D73";
 
 	string m = getStringFromFile("testing.txt");
+
+	int x = m.at(5);
+	cout<<x<<endl;
 	// cout<<endl<<m<<endl;
 
 	m = convertToHex(m);
@@ -38,25 +41,26 @@ int main(void) {
 
 	cout<<cc<<endl;
 
-	Decrypt d(cc, k1);
+	Decrypt d(cc, k3);
 	string dd = d.getDecrypted();
 	Encrypt e(dd, k2);
 	string ee = e.getEncrypted();
-	Decrypt f(ee, k3);
+	Decrypt f(ee, k1);
 	string ff = f.getDecrypted();
 
+	cout<<convertToString(ff)<<endl;
 	cout<<ff<<endl;
 	
 	// cout<<convertToHex("testing.txt")<<endl;
   	
-	// Encrypt plainText(m, k1);
-	// // cout<<plainText.getEncrypted()<<endl;
-	// Decrypt cypherText(plainText.getEncrypted(), k1);
+	// Encrypt plainText(m, k2);
+	// cout<<plainText.getEncrypted()<<endl;
+	// Decrypt cypherText(plainText.getEncrypted(), k2);
 	// cout<<cypherText.getDecrypted()<<endl;
 	// string cc = cypherText.getDecrypted();
 
 	// cout<<cc<<endl;
-	// cout<<convertToString(cc)<<endl;
+	// cout<<convertToString(cypherText.getDecrypted())<<endl;
 
 	return 0;
 }
@@ -84,6 +88,8 @@ string convertToHex(string str) {
 	ofstream outFile("temp.txt");
 	for(int i = 0; i < str.length(); i++) {
 		tmp = str.at(i);
+		if(tmp >=0 && tmp <= 17)
+			outFile << 0;
 		outFile << hex << tmp;
 	}
 	cout<<endl;
