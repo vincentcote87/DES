@@ -27,7 +27,6 @@ private:
 	vector<int> sboxValues;
 	vector<int> finalF;
 	vector<int> Rn;
-	// Key roundKey('testing');
 
 };
 
