@@ -20,44 +20,54 @@ const int INVERSE_IP[] = {
 };
 
 Encrypt::Encrypt(string plainText, string providedKey) {
-	cout<<plainText<<endl<<endl;
-	char tmp[16];
-	int key[48]; // use get key(key#, key), key# starts at 1 through 16
-	memset(key, 0, sizeof(key));
-	string str;
-	Key k(providedKey);
-
-
-	for(int i = 0; i < 16; i++) {
-		tmp[i] = plainText.at(i);
+	int size = plainText.length();
+	int index = 0;
+	// int key[48]; // use get key(key#, key), key# starts at 1 through 16
+	// memset(key, 0, sizeof(key));
+	// Key k(providedKey);
+	if(size % 16 != 0) {
+		plainText.insert(plainText.length(), "0000000000000000", (16 - (size % 16)));
 	}
+	while(index != plainText.length()) {
+		Rn.clear();
+		Ln.clear();
+		RL.clear();
+		int key[48]; // use get key(key#, key), key# starts at 1 through 16
+		memset(key, 0, sizeof(key));
+		Key k(providedKey);
+		char tmp[16];
+		for(int i = 0; i < 16; i++) {
+			tmp[i] = plainText.at(i + index);
+		}
 
-	Block blk(tmp);
-	Ln = blk.getLeft();
-	Rn = blk.getRight();
-	for(int j = 1; j <= 16; j++) {
-		k.getKey(j, key);
-		Round r(Ln, Rn, key);
-		Ln = Rn;
-		Rn = r.getRight();
-	}
+		Block blk(tmp);
+		Ln = blk.getLeft();
+		Rn = blk.getRight();
+		for(int j = 1; j <= 16; j++) {
+			k.getKey(j, key);
+			Round r(Ln, Rn, key);
+			Ln = Rn;
+			Rn = r.getRight();
+		}
 
-	for(int j = 0; j < 32; j++) {
-		RL.push_back(Rn[j]);
-	}
-	for(int j = 0; j < 32; j++) {
-		RL.push_back(Ln[j]);
-	}
+		for(int j = 0; j < 32; j++) {
+			RL.push_back(Rn[j]);
+		}
+		for(int j = 0; j < 32; j++) {
+			RL.push_back(Ln[j]);
+		}
 
-	for(int j = 0; j < 64; j++) {
-		inverseIP.push_back(RL[INVERSE_IP[j] - 1]);
-	}
+		for(int j = 0; j < 64; j++) {
+			inverseIP.push_back(RL[INVERSE_IP[j] - 1]);
+		}
+		index += 16;
+	}	
 }
 
 string Encrypt::getEncrypted() {
 	int tmpChar[4];
 	C = "";
-	for(int i = 0; i < 64; i++) {
+	for(int i = 0; i < inverseIP.size(); i++) {
 		tmpChar[i % 4] = inverseIP[i];
 		if(i % 4 == 3) {
 			C = C + convertToHex(tmpChar);
