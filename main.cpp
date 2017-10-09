@@ -25,21 +25,15 @@ int main(void) {
 
 	string m = getStringFromFile("testing.txt");
 
-	int x = m.at(5);
-	cout<<x<<endl;
-	// cout<<endl<<m<<endl;
-
 	m = convertToHex(m);
 	m = getStringFromFile("temp.txt");
 
-	Encrypt a("596F7572206C6970", k1);
+	Encrypt a(m, k1);
 	string aa = a.getEncrypted();
 	Decrypt b(aa, k2);
 	string bb = b.getDecrypted();
 	Encrypt c(bb, k3);
 	string cc = c.getEncrypted();
-
-	cout<<cc<<endl;
 
 	Decrypt d(cc, k3);
 	string dd = d.getDecrypted();
@@ -49,7 +43,6 @@ int main(void) {
 	string ff = f.getDecrypted();
 
 	cout<<convertToString(ff)<<endl;
-	cout<<ff<<endl;
 	
 	// cout<<convertToHex("testing.txt")<<endl;
   	
@@ -92,7 +85,6 @@ string convertToHex(string str) {
 			outFile << 0;
 		outFile << hex << tmp;
 	}
-	cout<<endl;
 	return str;
 }
 

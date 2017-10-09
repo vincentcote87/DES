@@ -20,45 +20,50 @@ const int INVERSE_IP[] = {
 };
 
 Decrypt::Decrypt(string plainText, string providedKey) {
-	char tmp[16];
+	int index = 0;
 	int key[48]; // use get key(key#, key), key# starts at 1 through 16
 	memset(key, 0, sizeof(key));
-	string str;
 	Key k(providedKey);
 
+	while(index != plainText.length()) {
+		Rn.clear();
+		Ln.clear();
+		RL.clear();
+		char tmp[16];
+		for(int i = 0; i < 16; i++) {
+			tmp[i] = plainText.at(i + index);
+		}
 
-	for(int i = 0; i < 16; i++) {
-		tmp[i] = plainText.at(i);
-	}
+		Block blk(tmp);
+		Ln = blk.getLeft();
+		Rn = blk.getRight();
+		int i = 16;
+		for(int j = 1; j <= 16; j++) {
+			k.getKey(i, key);
+			Round r(Ln, Rn, key);
+			Ln = Rn;
+			Rn = r.getRight();
+			i--;
+		}
 
-	Block blk(tmp);
-	Ln = blk.getLeft();
-	Rn = blk.getRight();
-	int i = 16;
-	for(int j = 1; j <= 16; j++) {
-		k.getKey(i, key);
-		Round r(Ln, Rn, key);
-		Ln = Rn;
-		Rn = r.getRight();
-		i--;
-	}
+		for(int j = 0; j < 32; j++) {
+			RL.push_back(Rn[j]);
+		}
+		for(int j = 0; j < 32; j++) {
+			RL.push_back(Ln[j]);
+		}
 
-	for(int j = 0; j < 32; j++) {
-		RL.push_back(Rn[j]);
-	}
-	for(int j = 0; j < 32; j++) {
-		RL.push_back(Ln[j]);
-	}
-
-	for(int j = 0; j < 64; j++) {
-		inverseIP.push_back(RL[INVERSE_IP[j] - 1]);
+		for(int j = 0; j < 64; j++) {
+			inverseIP.push_back(RL[INVERSE_IP[j] - 1]);
+		}
+		index += 16;
 	}
 }
 
 string Decrypt::getDecrypted() {
 	int tmpChar[4];
 	C = "";
-	for(int i = 0; i < 64; i++) {
+	for(int i = 0; i < inverseIP.size(); i++) {
 		tmpChar[i % 4] = inverseIP[i];
 		if(i % 4 == 3) {
 			C = C + convertToHex(tmpChar);
