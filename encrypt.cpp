@@ -22,9 +22,9 @@ const int INVERSE_IP[] = {
 Encrypt::Encrypt(string plainText, string providedKey) {
 	int size = plainText.length();
 	int index = 0;
-	// int key[48]; // use get key(key#, key), key# starts at 1 through 16
-	// memset(key, 0, sizeof(key));
-	// Key k(providedKey);
+	int key[48]; // use get key(key#, key), key# starts at 1 through 16
+	memset(key, 0, sizeof(key));
+	Key k(providedKey);
 	if(size % 16 != 0) {
 		plainText.insert(plainText.length(), "0000000000000000", (16 - (size % 16)));
 	}
@@ -32,9 +32,6 @@ Encrypt::Encrypt(string plainText, string providedKey) {
 		Rn.clear();
 		Ln.clear();
 		RL.clear();
-		int key[48]; // use get key(key#, key), key# starts at 1 through 16
-		memset(key, 0, sizeof(key));
-		Key k(providedKey);
 		char tmp[16];
 		for(int i = 0; i < 16; i++) {
 			tmp[i] = plainText.at(i + index);
