@@ -67,17 +67,42 @@ vector<int> Block::getRight() {
 }
 
 void Block::convertString() {
-	int tmp;
+	// int tmp;
 
-	for(int i = 0; i < plainText.length(); i++) {
-		tmp = plainText[i];
-		int tmpBlock[8];
-		for(int j = 7; j >= 0; j--) {
-			tmpBlock[j] = tmp % 2;
-			tmp = tmp / 2;
-		}
-		for(int j = 0; j < 8; j++) {
-			binaryPlainText.push_back(tmpBlock[j]);
+	// for(int i = 0; i < plainText.length(); i++) {
+	// 	tmp = plainText[i];
+	// 	int tmpBlock[8];
+	// 	for(int j = 7; j >= 0; j--) {
+	// 		tmpBlock[j] = tmp % 2;
+	// 		tmp = tmp / 2;
+	// 	}
+	// 	for(int j = 0; j < 8; j++) {
+	// 		binaryPlainText.push_back(tmpBlock[j]);
+	// 	}
+	// }
+
+	char ch;
+	for(int i = 0; i < 16; i++) {
+		ch = plainText.at(i);
+
+		switch(ch) {
+			case '0' : pushToBPT(0,0,0,0); break;
+			case '1' : pushToBPT(0,0,0,1); break;
+			case '2' : pushToBPT(0,0,1,0); break;
+			case '3' : pushToBPT(0,0,1,1); break;
+			case '4' : pushToBPT(0,1,0,0); break;
+			case '5' : pushToBPT(0,1,0,1); break;
+			case '6' : pushToBPT(0,1,1,0); break;
+			case '7' : pushToBPT(0,1,1,1); break;
+			case '8' : pushToBPT(1,0,0,0); break;
+			case '9' : pushToBPT(1,0,0,1); break;
+			case 'a' : case 'A' : pushToBPT(1,0,1,0); break;
+			case 'b' : case 'B' : pushToBPT(1,0,1,1); break;
+			case 'c' : case 'C' : pushToBPT(1,1,0,0); break;
+			case 'd' : case 'D' : pushToBPT(1,1,0,1); break;
+			case 'e' : case 'E' : pushToBPT(1,1,1,0); break;
+			case 'f' : case 'F' : pushToBPT(1,1,1,1); break;
+			default : cout << "Critical Error" << endl;
 		}
 	}
 	// //debug msg
@@ -99,6 +124,13 @@ void Block::convertString() {
 	// }
 	// 	cout<<endl;
 	//end dbug
+}
+
+void Block::pushToBPT(int w, int x, int y, int z) {
+	binaryPlainText.push_back(w);
+	binaryPlainText.push_back(x);
+	binaryPlainText.push_back(y);
+	binaryPlainText.push_back(z);
 }
 
 void Block::initialPermutation() {
