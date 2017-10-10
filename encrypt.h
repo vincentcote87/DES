@@ -12,7 +12,9 @@ using namespace std;
 
 class Encrypt {
 public:
+	// Takes in a string (in Hex) to encrypt and a key as perameters
 	Encrypt(string, string);
+	// returns the string of encrypted text (in Hex)
 	string getEncrypted();
 
 private:
@@ -23,6 +25,7 @@ private:
 	vector<int> RL;
 	vector<int> inverseIP;
 
+	// Converts binary string of 4 bits ro hex char
 	char convertToHex(int[4]);
 
 };

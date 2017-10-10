@@ -72,7 +72,7 @@ int main(void) {
 		cout<<endl;
 		cout<<"Please enter the name of the file to Encrypt/Decrypt including its extension (eg. example.txt): ";
 		cin>>fileName;
-		ifstream inFile(fileName);
+		ifstream inFile(fileName.c_str());
 		if(inFile.good()){
 			fileIsGood = true;
 		}
@@ -82,7 +82,7 @@ int main(void) {
 	} while(!fileIsGood);
 
 	if(choice == 'e' || choice == 'E') {
-		m = getStringFromFile(fileName);
+		m = getStringFromFile(fileName.c_str());
 		m = convertToHex(m);
 		m = getStringFromFile("temp.txt");
 
@@ -93,7 +93,7 @@ int main(void) {
 		out = cc.getEncrypted();
 		cout<<"your file has been encrypted, please enter a name for your output file: ";
 	} else {
-		c = getStringFromFile(fileName);
+		c = getStringFromFile(fileName.c_str());
 
 		Decrypt dd(c, k3);
 		Encrypt ee(dd.getDecrypted(), k2);
@@ -104,7 +104,7 @@ int main(void) {
 	}
 	cin>>outputFileName;
 	outputFileName += ".txt";
-	ofstream outFile(outputFileName);
+	ofstream outFile(outputFileName.c_str());
 	outFile<<out;
 
 	return 0;
