@@ -85,6 +85,7 @@ int main(void) {
 		m = getStringFromFile(fileName.c_str());
 		m = convertToHex(m);
 		m = getStringFromFile("temp.txt");
+		remove("temp.txt");
 
 		Encrypt aa(m, k1);
 		Decrypt bb(aa.getEncrypted(), k2);
@@ -147,7 +148,7 @@ bool keyIsInvalid(string key) {
 }
 
 string getStringFromFile(string file) {
-	ifstream t(file);
+	ifstream t(file.c_str());
 	string str;
 	string hexStr = "";
 	vector<int> binary;

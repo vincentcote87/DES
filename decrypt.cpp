@@ -22,7 +22,6 @@ const int INVERSE_IP[] = {
 Decrypt::Decrypt(string plainText, string providedKey) {
 	int index = 0;
 	int key[48]; // use get key(key#, key), key# starts at 1 through 16
-	memset(key, 0, sizeof(key));
 	Key k(providedKey);
 
 	while(index != plainText.length()) {
